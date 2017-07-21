@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="generator" content="RapidWeaver"/>
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="baseurl" content="http://www.myblog.com/">
+
+    <title>Home | My Website</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../rw_common/themes/offroad/consolidated.css?rwcache=521982999"/>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Istok+Web:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="../rw_common/themes/offroad/assets/javascript/html5shiv.js"></script>
+    <script src="../rw_common/themes/offroad/assets/javascript/respond.js"></script>
+    <![endif]-->
+    <script src="https://unpkg.com/vue"></script>
+    <!--<script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+</head>
+
+<body>
+<div id="page" class="site">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <nav class="site-navigation" role="navigation">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="site-navigation-inner">
+                    <ul>
+                        <li class="selected"><a href="./" rel="" class="current">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav><!-- .site-navigation -->
+
+    <header id="masthead" class="site-header" role="banner">
+        <div class="container">
+            <div class="site-branding">
+                <div class="site-title">
+                    <a href="/index.html">My Website</a>
+                </div>
+
+                <div class="site-logo">
+                    <a href="/index.html" class="site-logo"></a>
+                </div>
+
+                <div class="site-description">
+                    Changing the world, one site at a time&hellip;
+                </div>
+            </div><!-- .site-branding -->
+        </div><!-- .container -->
+    </header><!-- .site-header -->
+
+    <div class="container container-main">
+        <div class="row">
+            <main id="content" class="site-content col-xs-12 col-md-9" role="main">
+                <div id="site-content-titles" class="site-content-inner">
+                    <div id="unique-entry-id-2" class="blog-entry">
+                        <h1 class="blog-entry-title">
+                            <a :href="'/getblog?title='+title2" class="blog-permalink">{{title2}}</a>
+                        </h1>
+                        <button @click="delBlog(title2)">del</button>
+                    </div>
+                    <div id="unique-entry-id-1" class="blog-entry">
+                        <h1 class="blog-entry-title">
+                            <a :href="'/getblog?title='+title1" class="blog-permalink">{{title1}}</a>
+                        </h1>
+                        <button @click="delBlog(title1)">del</button>
+                    </div>
+                    <div id="unique-entry-id-0" class="blog-entry">
+                        <h1 class="blog-entry-title">
+                            <a :href="'/getblog?title='+title0" class="blog-permalink">{{title0}}</a>
+                        </h1>
+                        <button @click="delBlog(title0)">del</button>
+                    </div>
+
+                </div>
+                <div class="page-bar">
+                    <ul>
+                        <li v-if="cur>1"><a @click="cur--,pageClick()">上一页</a></li>
+                        <li v-if="cur==1"><a class="banclick">上一页</a></li>
+                        <li v-for="index in indexs" :class="{ 'active': cur == index}">
+                            <a @click="btnClick(index)">{{ index }}</a>
+                        </li>
+                        <li v-if="cur!=all"><a @click="cur++,pageClick()">下一页</a></li>
+                        <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                        <li><a>共<i>{{all}}</i>页</a></li>
+                    </ul>
+                </div>
+            </main>
+
+            <aside class="site-sidebar col-xs-12 col-md-3">
+                <div id="sidebar" class="sidebar" v-model="isLogin">
+                    <div v-if="!isLogin">
+                        <div class="form-group">
+                            <input type="text" placeholder="username" style="color:#000000" v-model="user.username"><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="password" style="color:#000000" v-model="user.password"><br>
+                        </div>
+                        <div class="form-group">
+                            <button style="color:#000000" @click="login">login</button>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <h3>welcome!</h3><br>
+                        <form action="/newblog" method="get" style="color:#000000">
+                            <button @click="logout">logout</button>
+                            <button type="submit">new blog</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="plugin-sidebar">
+
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer id="footer" class="site-footer" role="contentinfo">
+        <div class="row">
+            <div class="col-xs-12">
+                &copy; 2017 Victor Liu
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="body-overlay"></div>
+
+<!-- Javascript includes -->
+<script>
+    var main = new Vue({
+        el: '#content',
+        data: {
+            login: false,
+            title0: '0',
+            title1: '1',
+            title2: '2',
+            all: 8, //总页数
+            cur: 1//当前页码
+        },
+        watch: {
+            cur: function (oldValue, newValue) {
+                console.log(arguments);
+            }
+        },
+        mounted: function () {
+            this.$http.get('/getblognum').then(function (response) {
+                // 响应成功回调
+                this.all = Math.ceil(response.data.blognum / 3);
+            }, function (response) {
+                // 响应错误回调
+                alert(2);
+            });
+            this.updatetitles();
+        },
+        methods: {
+            islogin: function () {
+                this.$http.get("/islogin").then(function (response) {
+                    this.login = response.data.islogin;
+
+                }, function (response) {
+
+                })
+            },
+            updatetitles: function () {
+                this.$http.get('/gettitles?curpage=' + this.cur).then(function (response) {
+                    // 响应成功回调
+                    this.title0 = response.data.title0;
+                    this.title1 = response.data.title1;
+                    this.title2 = response.data.title2;
+                }, function (response) {
+                    // 响应错误回调
+                    alert(2);
+                });
+            },
+            btnClick: function (data) {//页码点击事件
+                if (data != this.cur) {
+                    this.cur = data
+                    this.updatetitles()
+                }
+            },
+            pageClick: function () {
+                console.log('现在在' + this.cur + '页');
+                this.updatetitles()
+            },
+            delBlog: function (title) {
+                this.$http.get("/islogin").then(function (response) {
+                    this.login = response.data.islogin;
+                    if (this.login == false) {
+                        alert("please login first!")
+                    } else {
+                        this.$http.get("/delblog", {params: {'title': title}}).then(function (response) {
+                            alert("del success!")
+                            location.reload()
+                        }, function (response) {
+                            alert("del error")
+                        })
+                    }
+
+                }, function (response) {
+
+                })
+
+            }
+        },
+        computed: {
+            indexs: function () {
+                var left = 1;
+                var right = this.all;
+                var ar = [];
+                if (this.all >= 5) {
+                    if (this.cur > 3 && this.cur < this.all - 2) {
+                        left = this.cur - 2
+                        right = this.cur + 2
+                    } else {
+                        if (this.cur <= 3) {
+                            left = 1
+                            right = 5
+                        } else {
+                            right = this.all
+                            left = this.all - 4
+                        }
+                    }
+                }
+                while (left <= right) {
+                    ar.push(left)
+                    left++
+                }
+                return ar
+            }
+
+        }
+    });
+    var sideBar = new Vue({
+        el: '#sidebar',
+        data: {
+            isLogin: false,
+            user: {
+                username: '',
+                password: ''
+            }
+        },
+        mounted: function () {
+            this.islogin()
+        },
+        methods: {
+            islogin: function () {
+                this.$http.get("/islogin").then(function (response) {
+                    this.isLogin = response.data.islogin;
+
+                }, function (response) {
+
+                })
+            },
+
+            login: function () {
+                this.$http.get("/login", {params: {'username': this.user.username, 'password': this.user.password}})
+                    .then(function (response) {
+                        this.isLogin = response.data.islogin;
+                        this.isLogin == true ? alert("welcome!") : alert("login failed!");
+                    }, function (response) {
+                        alert(response.data.islogin + "login failed!" + this.user.username + this.user.password)
+                    })
+            },
+            logout: function () {
+                this.$http.get("/logout").then(function (response) {
+                    alert("logout success!");
+                    this.isLogin = false;
+
+                }, function (response) {
+                    alert("network error!")
+                })
+            },
+            newBlog: function () {
+                this.$http.get("/newblog").then(function (response) {
+                    alert(response.status)
+
+                }, function (response) {
+                    alert(response.status)
+                })
+            }
+        }
+    })
+</script>
+<script src="../rw_common/themes/offroad/javascript.js?rwcache=521982999"></script>
+<script type="text/javascript"
+        src="../rw_common/themes/offroad/assets/javascript/background-blur.js?rwcache=521982999"></script>
+<script type="text/javascript"
+        src="../rw_common/themes/offroad/assets/javascript/sidebar-right.js?rwcache=521982999"></script>
+
+
+</body>
+</html>

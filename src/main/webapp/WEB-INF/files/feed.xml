@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+	<channel>
+<title>My RSS Feed</title><link>http://www.test.com/index.html</link><description>Hot News&#x21;</description><dc:language>en</dc:language><language>en</language><dc:date>2017-07-16T19:24:07+08:00</dc:date><admin:generatorAgent rdf:resource="http://www.realmacsoftware.com/" />
+<sy:updatePeriod>hourly</sy:updatePeriod>
+<sy:updateFrequency>1</sy:updateFrequency>
+<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<lastBuildDate>Sun, 16 Jul 2017 19:24:12 +0800</lastBuildDate><item><title>ccc</title><dc:subject>MyBlog</dc:subject><dc:date>2017-07-16T19:24:07+08:00</dc:date><link>http://www.test.com/files/ec5fe144fb02eb325ec9b7a03477f434-2.html#unique-entry-id-2</link><guid isPermaLink="true">http://www.test.com/files/ec5fe144fb02eb325ec9b7a03477f434-2.html#unique-entry-id-2</guid><content:encoded><![CDATA[cccccccccccccccccccc]]></content:encoded></item><item><title>bbb</title><dc:subject>MyBlog</dc:subject><dc:date>2017-07-16T19:23:52+08:00</dc:date><link>http://www.test.com/files/8359a21d5e11fb580e86becbac588016-1.html#unique-entry-id-1</link><guid isPermaLink="true">http://www.test.com/files/8359a21d5e11fb580e86becbac588016-1.html#unique-entry-id-1</guid><content:encoded><![CDATA[bbbbbbbbbbbbbbbbbbbbbbbbbbb]]></content:encoded></item><item><title>aaa</title><dc:subject>MyBlog</dc:subject><dc:date>2017-07-16T19:23:04+08:00</dc:date><link>http://www.test.com/files/72dbc5de31fc5f5900fe6f03af62c27f-0.html#unique-entry-id-0</link><guid isPermaLink="true">http://www.test.com/files/72dbc5de31fc5f5900fe6f03af62c27f-0.html#unique-entry-id-0</guid><content:encoded><![CDATA[aaaaaaaaaaaaaaaaaaaaaaaa]]></content:encoded></item></channel>
+</rss>
